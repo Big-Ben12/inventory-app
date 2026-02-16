@@ -69,8 +69,8 @@ async function main() {
   console.log('Populating database...');
 
   const client = new Client({
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
+     connectionString: process.env.DATABASE_URL,
+  ssl: { rejectUnauthorized: false },
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
     port: process.env.DB_PORT
