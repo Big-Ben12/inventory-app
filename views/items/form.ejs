@@ -1,0 +1,102 @@
+<%- include('../partials/header', { title }) %>
+
+<div class="page-header">
+  <h1><%= title %></h1>
+</div>
+
+<% if (errors.length > 0) { %>
+  <div class="errors">
+    <ul>
+      <% errors.forEach(error => { %>
+        <li><%= error %></li>
+      <% }); %>
+    </ul>
+  </div>
+<% } %>
+
+<div class="form-container">
+  <form method="POST" action="<%= item ? `/items/${item.id}/update` : '/items/create' %>">
+    <div class="form-group">
+      <label for="name">Item Name *</label>
+      <input 
+        type="text" 
+        id="name" 
+        name="name" 
+        value="<%= item ? item.name : '' %>" 
+        required
+        placeholder="e.g., MacBook Pro 16"
+      >
+    </div>
+
+    <div class="form-group">
+      <label for="description">Description</label>
+      <textarea 
+        id="description" 
+        name="description"
+        placeholder="Enter item description..."
+      ><%= item ? item.description || '' : '' %></textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="category_id">Category *</label>
+      <select id="category_id" name="category_id" required>
+        <option value="">Select a category</option>
+        <% categories.forEach(category => { %>
+          <option 
+            value="<%= category.id %>"
+            <%= item && item.category_id == category.id ? 'selected' : '' %>
+          >
+            <%= category.name %>
+          </option>
+        <% }); %>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="price">Price ($) *</label>
+      <input 
+        type="number" 
+        id="price" 
+        name="price" 
+        step="0.01"
+        min="0"
+        value="<%= item ? item.price : '' %>" 
+        required
+        placeholder="0.00"
+      >
+    </div>
+
+    <div class="form-group">
+      <label for="quantity">Quantity *</label>
+      <input 
+        type="number" 
+        id="quantity" 
+        name="quantity" 
+        min="0"
+        value="<%= item ? item.quantity : '' %>" 
+        required
+        placeholder="0"
+      >
+    </div>
+
+    <div class="form-group">
+      <label for="sku">SKU (Stock Keeping Unit)</label>
+      <input 
+        type="text" 
+        id="sku" 
+        name="sku" 
+        value="<%= item ? item.sku || '' : '' %>" 
+        placeholder="e.g., LAP-MBP16-001"
+      >
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary">
+        <%= item ? 'Update Item' : 'Create Item' %>
+      </button>
+      <a href="<%= item ? `/items/${item.id}` : '/items' %>" class="btn btn-secondary">Cancel</a>
+    </div>
+  </form>
+</div>
+
+<%- include('../partials/footer') %>

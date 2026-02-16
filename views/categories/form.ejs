@@ -1,0 +1,49 @@
+<%- include('../partials/header', { title }) %>
+
+<div class="page-header">
+  <h1><%= title %></h1>
+</div>
+
+<% if (errors.length > 0) { %>
+  <div class="errors">
+    <ul>
+      <% errors.forEach(error => { %>
+        <li><%= error %></li>
+      <% }); %>
+    </ul>
+  </div>
+<% } %>
+
+<div class="form-container">
+  <form method="POST" action="<%= category ? `/categories/${category.id}/update` : '/categories/create' %>">
+    <div class="form-group">
+      <label for="name">Category Name *</label>
+      <input 
+        type="text" 
+        id="name" 
+        name="name" 
+        value="<%= category ? category.name : '' %>" 
+        required
+        placeholder="e.g., Laptops, Smartphones"
+      >
+    </div>
+
+    <div class="form-group">
+      <label for="description">Description</label>
+      <textarea 
+        id="description" 
+        name="description"
+        placeholder="Enter category description..."
+      ><%= category ? category.description || '' : '' %></textarea>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary">
+        <%= category ? 'Update Category' : 'Create Category' %>
+      </button>
+      <a href="<%= category ? `/categories/${category.id}` : '/categories' %>" class="btn btn-secondary">Cancel</a>
+    </div>
+  </form>
+</div>
+
+<%- include('../partials/footer') %>

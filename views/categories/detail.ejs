@@ -1,0 +1,69 @@
+<%- include('../partials/header', { title }) %>
+
+<div class="page-header">
+  <h1><%= category.name %></h1>
+  <div style="display: flex; gap: 0.5rem;">
+    <a href="/categories/<%= category.id %>/update" class="btn btn-primary btn-small">Edit</a>
+    <a href="/categories/<%= category.id %>/delete" class="btn btn-danger btn-small">Delete</a>
+  </div>
+</div>
+
+<div class="category-details">
+  <div class="detail-row">
+    <div class="detail-label">Description:</div>
+    <div class="detail-value"><%= category.description || 'No description' %></div>
+  </div>
+  <div class="detail-row">
+    <div class="detail-label">Total Items:</div>
+    <div class="detail-value">
+      <span class="badge"><%= category.item_count %></span>
+    </div>
+  </div>
+  <div class="detail-row">
+    <div class="detail-label">Created:</div>
+    <div class="detail-value"><%= new Date(category.created_at).toLocaleDateString() %></div>
+  </div>
+</div>
+
+<div class="page-header" style="margin-top: 3rem;">
+  <h2>Items in this Category</h2>
+  <a href="/items/create" class="btn btn-primary btn-small">+ Add Item</a>
+</div>
+
+<% if (items.length === 0) { %>
+  <div class="empty-state">
+    <h3>No items in this category</h3>
+    <p>Add your first item to get started.</p>
+    <a href="/items/create" class="btn btn-primary" style="margin-top: 1rem;">Add Item</a>
+  </div>
+<% } else { %>
+  <div class="cards-grid">
+    <% items.forEach(item => { %>
+      <div class="card">
+        <h3><%= item.name %></h3>
+        <p><%= item.description ? item.description.substring(0, 80) + '...' : 'No description' %></p>
+        <div class="detail-row">
+          <div class="detail-label">Price:</div>
+          <div class="detail-value price">$<%= parseFloat(item.price).toFixed(2) %></div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-label">Stock:</div>
+          <div class="detail-value">
+            <% if (item.quantity > 10) { %>
+              <span class="stock-status in-stock"><%= item.quantity %> in stock</span>
+            <% } else if (item.quantity > 0) { %>
+              <span class="stock-status low-stock"><%= item.quantity %> left</span>
+            <% } else { %>
+              <span class="stock-status out-of-stock">Out of stock</span>
+            <% } %>
+          </div>
+        </div>
+        <div class="card-footer">
+          <a href="/items/<%= item.id %>" class="btn btn-primary btn-small">View Details</a>
+        </div>
+      </div>
+    <% }); %>
+  </div>
+<% } %>
+
+<%- include('../partials/footer') %>

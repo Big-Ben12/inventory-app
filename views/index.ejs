@@ -1,0 +1,39 @@
+<%- include('partials/header', { title }) %>
+
+<div class="hero">
+  <h1><span class="material-symbols-outlined" style="font-size: 35px;">storefront</span>Tech Inventory Management</h1>
+  <p>Manage your technology store inventory with ease</p>
+  <div class="hero-actions">
+    <a href="/categories" class="btn btn-primary">Browse Categories</a>
+    <a href="/items" class="btn btn-secondary">View All Items</a>
+  </div>
+</div>
+
+<div class="stats">
+  <div class="stat-card">
+    <div class="stat-value">📦</div>
+    <div class="stat-label">Inventory Management</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-value">🏷️</div>
+    <div class="stat-label">Category Organization</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-value">🔍</div>
+    <div class="stat-label">Quick Search</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-value">✏️</div>
+    <div class="stat-label">Easy Updates</div>
+  </div>
+</div>
+
+<div style="background-color: var(--card-bg); padding: 2rem; border-radius: 0.75rem; box-shadow: var(--shadow);">
+  <h2 style="margin-bottom: 1rem;">Quick Actions</h2>
+  <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+    <a href="/categories/create" class="btn btn-primary">+ Add Category</a>
+    <a href="/items/create" class="btn btn-primary">+ Add Item</a>
+  </div>
+</div>
+
+<%- include('partials/footer') %>

@@ -1,0 +1,36 @@
+<%- include('../partials/header', { title }) %>
+
+<div class="page-header">
+  <h1>Delete Category</h1>
+</div>
+
+<div class="form-container">
+  <h2><%= category.name %></h2>
+
+  <div class="delete-warning">
+    <p>⚠️ Warning: Deleting this category will also delete ALL <%= category.item_count %> item(s) associated with it.</p>
+    <p>This action cannot be undone!</p>
+  </div>
+
+  <div class="detail-row">
+    <div class="detail-label">Category Name:</div>
+    <div class="detail-value"><%= category.name %></div>
+  </div>
+  <div class="detail-row">
+    <div class="detail-label">Description:</div>
+    <div class="detail-value"><%= category.description || 'No description' %></div>
+  </div>
+  <div class="detail-row">
+    <div class="detail-label">Items in Category:</div>
+    <div class="detail-value"><span class="badge"><%= category.item_count %></span></div>
+  </div>
+
+  <form method="POST" action="/categories/<%= category.id %>/delete">
+    <div class="form-actions">
+      <button type="submit" class="btn btn-danger">Yes, Delete Category</button>
+      <a href="/categories/<%= category.id %>" class="btn btn-secondary">Cancel</a>
+    </div>
+  </form>
+</div>
+
+<%- include('../partials/footer') %>

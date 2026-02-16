@@ -1,0 +1,73 @@
+<%- include('../partials/header', { title }) %>
+
+<div class="page-header">
+  <h1><%= item.name %></h1>
+  <div style="display: flex; gap: 0.5rem;">
+    <a href="/items/<%= item.id %>/update" class="btn btn-primary btn-small">Edit</a>
+    <a href="/items/<%= item.id %>/delete" class="btn btn-danger btn-small">Delete</a>
+  </div>
+</div>
+
+<div class="item-details">
+  <div class="detail-row">
+    <div class="detail-label">Description:</div>
+    <div class="detail-value"><%= item.description || 'No description' %></div>
+  </div>
+
+  <div class="detail-row">
+    <div class="detail-label">Category:</div>
+    <div class="detail-value">
+      <% if (item.category_id) { %>
+        <a href="/categories/<%= item.category_id %>" style="color: var(--primary-color); text-decoration: none; font-weight: 600;">
+          <%= item.category_name %>
+        </a>
+      <% } else { %>
+        Uncategorized
+      <% } %>
+    </div>
+  </div>
+
+  <div class="detail-row">
+    <div class="detail-label">Price:</div>
+    <div class="detail-value price">$<%= parseFloat(item.price).toFixed(2) %></div>
+  </div>
+
+  <div class="detail-row">
+    <div class="detail-label">Stock Quantity:</div>
+    <div class="detail-value">
+      <% if (item.quantity > 10) { %>
+        <span class="stock-status in-stock"><%= item.quantity %> units in stock</span>
+      <% } else if (item.quantity > 0) { %>
+        <span class="stock-status low-stock"><%= item.quantity %> units left</span>
+      <% } else { %>
+        <span class="stock-status out-of-stock">Out of stock</span>
+      <% } %>
+    </div>
+  </div>
+
+  <% if (item.sku) { %>
+    <div class="detail-row">
+      <div class="detail-label">SKU:</div>
+      <div class="detail-value"><span class="sku"><%= item.sku %></span></div>
+    </div>
+  <% } %>
+
+  <div class="detail-row">
+    <div class="detail-label">Created:</div>
+    <div class="detail-value"><%= new Date(item.created_at).toLocaleDateString() %></div>
+  </div>
+
+  <div class="detail-row">
+    <div class="detail-label">Last Updated:</div>
+    <div class="detail-value"><%= new Date(item.updated_at).toLocaleDateString() %></div>
+  </div>
+</div>
+
+<div style="margin-top: 2rem;">
+  <a href="/items" class="btn btn-secondary">← Back to Items</a>
+  <% if (item.category_id) { %>
+    <a href="/categories/<%= item.category_id %>" class="btn btn-secondary">View Category</a>
+  <% } %>
+</div>
+
+<%- include('../partials/footer') %>
