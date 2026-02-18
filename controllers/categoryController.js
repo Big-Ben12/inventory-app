@@ -1,20 +1,17 @@
 // controllers/categoryController.js
 const db = require('../db/queries');
 
-exports.categoryDetail = async (req, res) => {
+// GET all categories
+exports.categoryList = async (req, res) => {
   try {
-    const category = await db.getCategoryById(req.params.id);
-    const items = await db.getItemsByCategory(req.params.id);
-
-    if (!category) return res.status(404).send("Category not found");
-
-    res.render("categories/detail", { title: category.name, category, items });
+    const categories = await db.getAllCategories();
+    res.render('categories/list', { title: 'All Categories', categories });
   } catch (error) {
-    console.error("categoryDetail error:", error);   // <— add
-    res.status(500).send(error.message);             // <— TEMP: show message
+    console.error('categoryList error:', error);
+    // expose minimal message in response, full details in logs
+    res.status(500).send('Error fetching categories');
   }
 };
-
 
 // GET category detail
 exports.categoryDetail = async (req, res) => {
