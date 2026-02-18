@@ -19,6 +19,7 @@ exports.itemList = async (req, res) => {
       searchTerm: searchTerm || ''
     });
   } catch (error) {
+    console.error('itemList error:', error);
     res.status(500).send('Error fetching items');
   }
 };
